@@ -1,0 +1,228 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://audi.de/adas/logging/hvds/V0_0_1",
+    "title": "ADAS HVDS index output",
+    "description": "index output for a given TDMS file containing HVDS",
+    "properties": {
+        "File": {
+            "description": "ADAS HVDS Index File",
+            "type": "object",
+            "properties": {
+                "RawFile": {
+                    "description": "the input file name",
+                    "type": "string"
+                },
+                "Metadata": {
+                    "type": "object",
+                    "properties": {
+                        "Name": {
+                            "description": "Split file name",
+                            "type": "string"
+                        },
+                        "LoggerVersionMajor": {
+                            "description": "Major version of the logger software",
+                            "type": "number"
+                        },
+                        "LoggerVersionMinor": {
+                            "description": "Minor version of the logger software",
+                            "type": "number"
+                        },
+                        "LoggerVersionJSON": {
+                        	"description": "Detailed version info about modules",
+                        	"type": "string"
+                        },
+                        "TDMSVersionMajor": {
+                        	"description": "Major version of this TDMS file structure",
+                        	"type": "number"
+                        },
+                        "TDMSVersionMinor": {
+                        	"description": "Minor version of this TDMS file structure",
+                        	"type": "number"
+                        },
+                        "CarModel": {
+                            "description": "Detailed version info about modules",
+                            "type": "string"
+                        },
+                        "CarLicensePlate": {
+                            "description": "License plate of the car used",
+                            "type": "string"
+                        },
+                        "ReferenceFileName": {
+                            "description": "Reference file containing overall information about all splits and streams",
+                            "type": "string"
+                        },
+                        "ReferenceSplitBefore": {
+                            "description": "TDMS file containing the data of the previous split",
+                            "type": "string"
+                        },
+                        "ReferenceSplitAfter": {
+                            "description": "TDMS file containing the data of the next split",
+                            "type": "string"
+                        },
+                        "ReferenceSplitStartTime": {
+                            "description": "Start time of this split",
+                            "type": "number"
+                        },
+                        "ReferenceSplitStopTime": {
+                            "description": "Stop time of this split",
+                            "type": "number"
+                        },
+                        "FutureTimeEvent": {
+                            "description": "Initial time event to reset all components to same time value",
+                            "type": "number"
+                        },
+                        "ZFramePath": {
+                            "description": "Path to Z-Framefile MFK5",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "Name",
+                        "LoggerVersionMajor",
+                        "LoggerVersionMinor",
+                        "CarModel",
+                        "CarLicensePlate",
+                        "ReferenceFileName",
+                        "ReferenceSplitBefore",
+                        "ReferenceSplitAfter",
+                        "ReferenceSplitStartTime",
+                        "ReferenceSplitStopTime",
+                        "FutureTimeEvent",
+                        "ZFramePath"
+                    ],
+                    "additionalProperties": false
+                },
+                "Stream": {
+                    "type": "object",
+                    "properties": {
+                        "Metadata": {
+                            "type": "object",
+                            "properties": {
+                                "Name": {
+                                    "description": "Name of this group; Group name is always \"Stream\" in any split file",
+                                    "type": "string"
+                                },
+                                "ChannelType": {
+                                    "description": "Type of vehicle data source for this channel",
+                                    "type": "string"
+                                },
+                                "ChannelSubType": {
+                                    "description": "Subtype of vehicle data source which is the hardware interface",
+                                    "type": "string"
+                                },
+                                "ChannelInfo": {
+                                    "description": "",
+                                    "type": "string"
+                                },
+                                "Sensor": {
+                                    "description": "Sensor/ECU name used for this stream",
+                                    "type": "string"
+                                },
+                                "PropertiesJSON": {
+                                    "description": "Additional user properties stored in File-node, from system in System-node, from user at runtime in User-node",
+                                    "type": "string"
+                                },
+                                "Codec": {
+                                    "description": "Details about data specifics like encryption or compression",
+                                    "type": "string"
+                                },
+                                "System": {
+                                    "description": "Measurement system used",
+                                    "type": "string"
+                                },
+                                "PXIeCard": {
+                                    "description": "PXIe card used to access to the sensor",
+                                    "type": "string"
+                                },
+                                "SampleTimestamp": {
+                                    "description": "Time reference used",
+                                    "type": "string"
+                                },
+                                "SampleType": {
+                                    "description": "Type of the sample used",
+                                    "type": "string"
+                                },
+                                "SampleTypeVersion": {
+                                    "description": "Type Version of sample based on the PXI card (for different CAN/FR?ETH card versions)",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "Name",
+                                "ChannelType",
+                                "ChannelSubType",
+                                "ChannelInfo",
+                                "Sensor",
+                                "PropertiesJSON",
+                                "Codec",
+                                "System",
+                                "PXIeCard",
+                                "SampleTimestamp",
+                                "SampleType",
+                                "SampleTypeVersion"
+                            ],
+                            "additionalProperties": false
+                        },
+                        "Data": {
+                            "type": "object",
+                            "properties": {
+                                "FrameByteOffset": {
+                                    "description": "The absolute byte offset for each data frame",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "number"
+                                    }
+                                },
+                                "FrameSize": {
+                                    "description": "The size of each data frame",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "number"
+                                    }
+                                },
+                                "Timestamp": {
+                                    "description": "Relative start timestamp of each data frame",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "number"
+                                    }
+                                }, 
+                                "State": {
+                                    "description": "The state of the each data frame",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "number"
+                                    }
+                                }, 
+                                "FrameNumber": {
+                                    "description": "The frame number",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "required": [
+                                "FrameByteOffset",
+                                "FrameSize",
+                                "Timestamp",
+                                "State",
+                                "FrameNumber"
+                            ],
+                            "additionalProperties": false
+                        }
+                    }
+                }
+            },
+            "required": [
+                "RawFile",
+                "Metadata",
+                "Stream"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "required": [
+        "File"
+    ]
+}
